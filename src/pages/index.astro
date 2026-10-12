@@ -2,22 +2,9 @@
 import Layout from "../layouts/Layout.astro";
 ---
 
-<Layout title="TP Observable Plot avec Astro">
-  <p>
-    Ce site présente des graphiques réalisés avec
-    <a href="https://observablehq.com/plot/">Observable Plot</a>. Ils sont générés au moment du
-    build grâce à un composant Astro (<code>PlotFigure.astro</code>) qui utilise JSDOM : la page
-    ne contient que du SVG, sans JavaScript côté client.
-  </p>
+<Layout title="TP Plot">
   <ul>
-    <li><a href="/penguins">L'exemple des penguins</a> (comme dans la documentation de Plot)</li>
-    <li><a href="/exemples">D'autres exemples</a> tirés de la galerie de Plot</li>
+    <li><a href="/penguins">Penguins</a></li>
+    <li><a href="/exemples">Exemples</a></li>
   </ul>
-  <h2>Accessibilité</h2>
-  <p>
-    Chaque graphique a un titre, un sous-titre et une légende (options <code>title</code>,
-    <code>subtitle</code> et <code>caption</code> de Plot, qui produisent un
-    <code>&lt;figure&gt;</code> et un <code>&lt;figcaption&gt;</code>) ainsi qu'un
-    <code>ariaLabel</code> sur le SVG.
-  </p>
 </Layout>

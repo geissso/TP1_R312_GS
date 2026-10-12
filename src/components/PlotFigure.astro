@@ -1,43 +1,10 @@
 ---
-// Rend un graphique Observable Plot côté serveur (au build) grâce à JSDOM :
-// aucun JavaScript n'est envoyé au navigateur, seul le SVG/HTML final.
 import * as Plot from "@observablehq/plot";
 import { JSDOM } from "jsdom";
-
-interface Props {
-  options: Plot.PlotOptions;
-}
 
 const { options } = Astro.props;
 const { document } = new JSDOM().window;
 const html = Plot.plot({ ...options, document }).outerHTML;
 ---
 
-<div class="plot">
-  <Fragment set:html={html} />
-</div>
-
-<style>
-  .plot {
-    margin: 2rem 0;
-    overflow-x: auto;
-  }
-  .plot :global(figure) {
-    margin: 0;
-  }
-  .plot :global(h2) {
-    font-size: 1.25rem;
-    margin: 0 0 0.25rem;
-  }
-  .plot :global(h3) {
-    font-size: 1rem;
-    font-weight: normal;
-    color: #444;
-    margin: 0 0 0.75rem;
-  }
-  .plot :global(figcaption) {
-    font-size: 0.875rem;
-    color: #444;
-    margin-top: 0.5rem;
-  }
-</style>
+<Fragment set:html={html} />

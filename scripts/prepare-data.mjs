@@ -1,11 +1,8 @@
-// Convertit les CSV d'exemple de Plot en JSON et ne garde que les colonnes utiles
-// (bonus : limite la taille des fichiers JSON embarqués dans le site).
-// Usage : node scripts/prepare-data.mjs <dossier contenant penguins.csv, aapl.csv, alphabet.csv>
 import { readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 
 const dir = process.argv[2];
-if (!dir) throw new Error("Préciser le dossier des CSV source");
+if (!dir) throw new Error("usage: node scripts/prepare-data.mjs <dir>");
 
 function readCsv(name) {
   const [header, ...lines] = readFileSync(join(dir, name), "utf8").trim().split(/\r?\n/);
@@ -26,9 +23,7 @@ function write(name, data) {
 }
 
 const penguins = readCsv("penguins.csv");
-// Fichier complet, tel que téléchargé
 write("penguins.json", penguins);
-// Version filtrée : uniquement les colonnes utilisées, sans valeurs manquantes
 write(
   "penguins-light.json",
   penguins
@@ -36,6 +31,5 @@ write(
     .map(({ species, island, culmen_length_mm, culmen_depth_mm, sex }) =>
       ({ species, island, culmen_length_mm, culmen_depth_mm, sex }))
 );
-// Cours de l'action Apple : uniquement la date et la clôture
 write("aapl.json", readCsv("aapl.csv").map(({ Date, Close }) => ({ Date, Close })));
 write("alphabet.json", readCsv("alphabet.csv"));

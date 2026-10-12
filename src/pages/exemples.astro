@@ -8,37 +8,25 @@ import alphabet from "../data/alphabet.json";
 const aapl = aaplRaw.map((d) => ({ ...d, Date: new Date(d.Date) }));
 ---
 
-<Layout title="Autres exemples de Plot">
-  <p>
-    Exemples adaptés de la
-    <a href="https://observablehq.com/@observablehq/plot-gallery">galerie de Plot</a>.
-  </p>
-
+<Layout title="Exemples">
   <PlotFigure
     options={{
-      title: "Cours de l'action Apple (2013-2018)",
-      subtitle: "Prix de clôture quotidien en dollars",
-      caption: "Figure 1. D'après l'exemple « Line chart » de Plot.",
-      ariaLabel: "Courbe du prix de clôture de l'action Apple entre 2013 et 2018",
-      y: { grid: true, label: "Prix de clôture ($)" },
-      x: { label: "Date" },
-      marks: [
-        Plot.ruleY([0]),
-        Plot.lineY(aapl, { x: "Date", y: "Close", stroke: "steelblue" }),
-      ],
+      title: "Line chart",
+      caption: "Figure 1. AAPL",
+      ariaLabel: "Line chart AAPL",
+      y: { grid: true },
+      marks: [Plot.ruleY([0]), Plot.lineY(aapl, { x: "Date", y: "Close" })],
     }}
   />
 
   <PlotFigure
     options={{
-      title: "Fréquence des lettres en anglais",
-      subtitle: "Triées de la plus à la moins fréquente",
-      caption: "Figure 2. D'après l'exemple « Bar chart » de Plot. Le E est la lettre la plus fréquente.",
-      ariaLabel: "Diagramme en barres de la fréquence de chaque lettre de l'alphabet",
-      y: { grid: true, percent: true, label: "Fréquence (%)" },
-      x: { label: "Lettre" },
+      title: "Bar chart",
+      caption: "Figure 2. Alphabet",
+      ariaLabel: "Bar chart alphabet",
+      y: { grid: true, percent: true },
       marks: [
-        Plot.barY(alphabet, { x: "letter", y: "frequency", fill: "steelblue", sort: { x: "-y" } }),
+        Plot.barY(alphabet, { x: "letter", y: "frequency", sort: { x: "-y" } }),
         Plot.ruleY([0]),
       ],
     }}
@@ -46,13 +34,11 @@ const aapl = aaplRaw.map((d) => ({ ...d, Date: new Date(d.Date) }));
 
   <PlotFigure
     options={{
-      title: "Fréquence des lettres (graphique de Cleveland)",
-      caption: "Figure 3. D'après l'exemple « Cleveland dot plot » de Plot.",
-      ariaLabel: "Graphique en points de la fréquence de chaque lettre, trié par fréquence",
+      title: "Cleveland dot plot",
+      caption: "Figure 3. Alphabet",
+      ariaLabel: "Cleveland dot plot alphabet",
       marginLeft: 30,
-      height: 520,
-      x: { grid: true, percent: true, label: "Fréquence (%)" },
-      y: { label: null },
+      x: { grid: true, percent: true },
       marks: [
         Plot.ruleY(alphabet, { y: "letter", x: "frequency", sort: { y: "-x" }, strokeOpacity: 0.3 }),
         Plot.dot(alphabet, { y: "letter", x: "frequency", fill: "currentColor" }),
