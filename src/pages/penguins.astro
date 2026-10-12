@@ -1,0 +1,72 @@
+---
+import * as Plot from "@observablehq/plot";
+import Layout from "../layouts/Layout.astro";
+import PlotFigure from "../components/PlotFigure.astro";
+import penguins from "../data/penguins-light.json";
+---
+
+<Layout title="Les penguins">
+    <h1 class="text-2xl">Test Astro et Plot (Observablehq) - Penguins</h1>
+
+  <PlotFigure
+    options={{
+      title: "Longueur et profondeur du bec des manchots",
+      subtitle: "Chaque point est un manchot, coloré selon son espèce",
+      caption: "Figure 1. Les trois espèces forment des groupes bien distincts.",
+      ariaLabel: "Nuage de points de la profondeur du bec en fonction de sa longueur",
+      ariaDescription:
+        "Les Adélie ont un bec court et profond, les Gentoo un bec long et fin, les Chinstrap un bec long et profond.",
+      grid: true,
+      color: { legend: true },
+      symbol: { legend: true },
+      x: { label: "Longueur du bec (mm)" },
+      y: { label: "Profondeur du bec (mm)" },
+      marks: [
+        Plot.dot(penguins, {
+          x: "culmen_length_mm",
+          y: "culmen_depth_mm",
+          stroke: "species",
+          symbol: "species",
+        }),
+      ],
+    }}
+  />
+
+  <PlotFigure
+    options={{
+      title: "Nombre de manchots par île et par espèce",
+      caption: "Figure 2. Seuls les Adélie vivent sur les trois îles.",
+      ariaLabel: "Diagramme en barres empilées du nombre de manchots par île",
+      color: { legend: true },
+      y: { label: "Nombre de manchots", grid: true },
+      x: { label: "Île" },
+      marks: [
+        Plot.barY(penguins, Plot.groupX({ y: "count" }, { x: "island", fill: "species" })),
+        Plot.ruleY([0]),
+      ],
+    }}
+  />
+
+  <PlotFigure
+    options={{
+      title: "Dimensions du bec selon le sexe",
+      subtitle: "Un panneau par sexe",
+      caption: "Figure 3. Les mâles ont en général un bec plus grand que les femelles.",
+      ariaLabel: "Nuages de points de la profondeur du bec en fonction de sa longueur, par sexe",
+      grid: true,
+      color: { legend: true },
+      x: { label: "Longueur du bec (mm)" },
+      y: { label: "Profondeur du bec (mm)" },
+      fx: { label: "Sexe", tickFormat: (d) => (d === "MALE" ? "Mâle" : "Femelle") },
+      marks: [
+        Plot.frame(),
+        Plot.dot(penguins, {
+          x: "culmen_length_mm",
+          y: "culmen_depth_mm",
+          fx: "sex",
+          stroke: "species",
+        }),
+      ],
+    }}
+  />
+</Layout>

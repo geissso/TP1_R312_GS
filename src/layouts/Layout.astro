@@ -1,23 +1,83 @@
+---
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+const path = Astro.url.pathname.replace(/\/$/, "") || "/";
+const links = [
+  { href: "/", label: "Accueil" },
+  { href: "/penguins", label: "Penguins" },
+  { href: "/exemples", label: "Autres exemples" },
+];
+---
+
 <!doctype html>
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
-	</head>
-	<body>
-		<slot />
-	</body>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="description" content="TP R3.12 : graphiques Observable Plot rendus avec Astro" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title} – TP Observable Plot</title>
+  </head>
+  <body>
+    <header>
+      <nav aria-label="Navigation principale">
+        <ul>
+          {links.map(({ href, label }) => (
+            <li>
+              <a href={href} aria-current={path === href ? "page" : undefined}>{label}</a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    </header>
+    <main>
+      <h1>{title}</h1>
+      <slot />
+    </main>
+    <footer>
+      <p>Solène Geiss – TP R3.12 – Astro &amp; Observable Plot</p>
+    </footer>
+  </body>
 </html>
 
 <style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
+  :global(body) {
+    margin: 0;
+    font-family: system-ui, sans-serif;
+    line-height: 1.5;
+    color: #1a1a1a;
+    background: #fff;
+  }
+  header,
+  main,
+  footer {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
+  nav ul {
+    display: flex;
+    gap: 1.5rem;
+    list-style: none;
+    padding: 1rem 0;
+    margin: 0;
+    border-bottom: 1px solid #ddd;
+  }
+  nav a {
+    color: #0b5394;
+  }
+  nav a[aria-current="page"] {
+    font-weight: bold;
+  }
+  footer {
+    margin-top: 3rem;
+    border-top: 1px solid #ddd;
+    color: #444;
+    font-size: 0.875rem;
+  }
 </style>

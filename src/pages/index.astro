@@ -1,11 +1,23 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import Layout from "../layouts/Layout.astro";
 ---
 
-<Layout>
-	<Welcome />
+<Layout title="TP Observable Plot avec Astro">
+  <p>
+    Ce site présente des graphiques réalisés avec
+    <a href="https://observablehq.com/plot/">Observable Plot</a>. Ils sont générés au moment du
+    build grâce à un composant Astro (<code>PlotFigure.astro</code>) qui utilise JSDOM : la page
+    ne contient que du SVG, sans JavaScript côté client.
+  </p>
+  <ul>
+    <li><a href="/penguins">L'exemple des penguins</a> (comme dans la documentation de Plot)</li>
+    <li><a href="/exemples">D'autres exemples</a> tirés de la galerie de Plot</li>
+  </ul>
+  <h2>Accessibilité</h2>
+  <p>
+    Chaque graphique a un titre, un sous-titre et une légende (options <code>title</code>,
+    <code>subtitle</code> et <code>caption</code> de Plot, qui produisent un
+    <code>&lt;figure&gt;</code> et un <code>&lt;figcaption&gt;</code>) ainsi qu'un
+    <code>ariaLabel</code> sur le SVG.
+  </p>
 </Layout>
